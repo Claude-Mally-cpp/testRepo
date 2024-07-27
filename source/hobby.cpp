@@ -1,5 +1,6 @@
 #include <fmt/format.h>
 #include <hobby/hobby.h>
+#include <hobby/hobbyMath.h>
 
 using namespace hobby;
 
