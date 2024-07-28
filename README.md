@@ -1,10 +1,23 @@
 # Hobby C++ project to explore CI
-- created from ModernCppStarter https://github.com/TheLartians/ModernCppStarter
+- created from ModernCppStarter https://github.com/Claude-Mally-cpp/testRepo
 
 ## Features
 
 - hello world
 
+git@github.com:Claude-Mally-cpp/testRepo
+-[![Actions Status](https://github.com/Claude-Mally-cpp/testRepo/workflows/MacOS/badge.svg)](https://github.com/Claude-Mally-cpp/testRepo/actions)
+-[![Actions Status](https://github.com/Claude-Mally-cpp/testRepo/workflows/Windows/badge.svg)](https://github.com/Claude-Mally-cpp/testRepo/actions)
+-[![Actions Status](https://github.com/Claude-Mally-cpp/testRepo/workflows/Ubuntu/badge.svg)](https://github.com/Claude-Mally-cpp/testRepo/actions)
+-[![Actions Status](https://github.com/Claude-Mally-cpp/testRepo/workflows/Style/badge.svg)](https://github.com/Claude-Mally-cpp/testRepo/actions)
+-[![Actions Status](https://github.com/Claude-Mally-cpp/testRepo/workflows/Install/badge.svg)](https://github.com/Claude-Mally-cpp/testRepo/actions)
+-[![codecov](https://codecov.io/gh/Claude-Mally-cpp/testRepo/branch/master/graph/badge.svg)](https://codecov.io/gh/Claude-Mally-cpp/testRepo)
+-
+-<p align="center">
+-  <img src="https://repository-images.githubusercontent.com/254842585/4dfa7580-7ffb-11ea-99d0-46b8fe2f4170" height="175" width="auto" />
+-</p>
+-
+-# ModernCppStarter
 ## Usage
 
 ### Build and run the standalone target
