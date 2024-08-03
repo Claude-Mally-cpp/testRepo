@@ -1,5 +1,5 @@
 # Hobby C++ project to explore CI
-- created from ModernCppStarter https://github.com/Claude-Mally-cpp/testRepo
+- created from ModernCppStarter https://github.com/TheLartians/ModernCppStarter
 
 ## Features
 
