@@ -58,8 +58,8 @@ auto main(int argc, char** argv) -> int {
 
     const auto number = std::atoi(divisor.c_str());
     if (number) {
-        std::vector<int> divisors = hobby::getDivisors(number);
-        fmt::println("Divisors of {} are [{}]", number, fmt::join(divisors, ", "));
+        const auto divisors = hobby::getDivisors(number);
+        fmt::println("Divisors of {} are {{{}}}", number, fmt::join(divisors, ", "));
     }
     return 0;
 }
