@@ -16,6 +16,13 @@ CPMAddPackage(
   OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
 
+CPMAddPackage(
+  NAME fmt
+  GIT_TAG 11.0.2
+  GITHUB_REPOSITORY fmtlib/fmt
+  OPTIONS "FMT_INSTALL YES" # create an installable target
+)
+
 CPMAddPackage(NAME Hobby SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 
 # ---- Create standalone executable ----
@@ -24,6 +31,6 @@ file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 
 add_executable(${PROJECT_NAME} ${sources})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME "Hobby")
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20 OUTPUT_NAME "Hobby")
 
-target_link_libraries(${PROJECT_NAME} Hobby::Hobby cxxopts)
+target_link_libraries(${PROJECT_NAME} Hobby::Hobby cxxopts fmt::fmt)

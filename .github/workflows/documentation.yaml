@@ -11,7 +11,9 @@ env:
 jobs:
   build:
     name: Build and publish documentation
-    runs-on: macos-latest
+    runs-on: macos-
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
       - uses: actions/checkout@v3
 
