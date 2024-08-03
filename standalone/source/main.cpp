@@ -2,6 +2,7 @@
 #include <hobby/version.h>
 
 #include <fmt/format.h>
+#include <fmt/ranges.h>
 #include <hobby/hobby.h>
 #include <cxxopts.hpp>
 #include <iostream>
@@ -33,34 +34,30 @@ auto main(int argc, char** argv) -> int {
   auto result = options.parse(argc, argv);
 
   if (result["help"].as<bool>()) {
-    fmt::print("{}\n", options.help());
+    fmt::println("{}",options.help());
     return 0;
   }
 
   if (result["version"].as<bool>()) {
-    std::cout << "Hobby, version " << HOBBY_VERSION << std::endl;
+    fmt::println("Hobby, version {}", HOBBY_VERSION);
     return 0;
   }
 
   auto langIt = languages.find(language);
   if (langIt == languages.end()) {
-    std::cerr << "unknown language code: " << language << std::endl;
+    fmt::println(stderr, "unknown language code: \"{}\"",language);
     return 1;
   }
 
   hobby::Hobby hobby(name);
   const auto message =  hobby.greet(langIt->second);
-  fmt::print("{}\n", message);
-  std::cout << hobby.greet(langIt->second) << std::endl;
+  fmt::println("{}", message);
+  fmt::println("{}", hobby.greet(langIt->second) );
 
   int number = 144;
 
   std::vector<int> divisors = hobby::getDivisors(number);
-  std::cout << "Divisors of " << number << " are: ";
-  for (int divisor : divisors) {
-    std::cout << divisor << " ";
-  }
-  std::cout << std::endl;
-
+  // fmt::println("Divisors of {} are {}", number, divisors);
+  fmt::println("Divisors of {} are [{}]", number, fmt::join(divisors, ", "));
   return 0;
 }
