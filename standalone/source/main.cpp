@@ -1,6 +1,7 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 #include <hobby/hobby.h>
+#include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
 #include <cxxopts.hpp>
@@ -20,6 +21,7 @@ auto main(int argc, char** argv) -> int {
 
     std::string language;
     std::string name;
+    std::string divisor;
 
     // clang-format off
   options.add_options()
@@ -27,6 +29,7 @@ auto main(int argc, char** argv) -> int {
     ("v,version", "Print the current version number")
     ("n,name", "Name to greet", cxxopts::value(name)->default_value("World"))
     ("l,lang", "Language code to use", cxxopts::value(language)->default_value("en"))
+    ("d,divisor", "show divisors", cxxopts::value(divisor)->default_value(""))
   ;
     // clang-format on
 
@@ -53,9 +56,10 @@ auto main(int argc, char** argv) -> int {
     fmt::println("{}", message);
     fmt::println("{}", hobby.greet(langIt->second));
 
-    const auto number = 144;
-
-    std::vector<int> divisors = hobby::getDivisors(number);
-    fmt::println("Divisors of {} are [{}]", number, fmt::join(divisors, ", "));
+    const auto number = std::atoi(divisor.c_str());
+    if (number) {
+        const auto divisors = hobby::getDivisors(number);
+        fmt::println("Divisors of {} are {{{}}}", number, fmt::join(divisors, ", "));
+    }
     return 0;
 }
