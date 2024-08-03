@@ -57,7 +57,6 @@ auto main(int argc, char** argv) -> int {
   int number = 144;
 
   std::vector<int> divisors = hobby::getDivisors(number);
-  // fmt::println("Divisors of {} are {}", number, divisors);
   fmt::println("Divisors of {} are [{}]", number, fmt::join(divisors, ", "));
   return 0;
 }
