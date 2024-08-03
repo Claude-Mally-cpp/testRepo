@@ -62,5 +62,4 @@ namespace hobby {
     return divisors;
   }
 
-
 }  // namespace hobby
