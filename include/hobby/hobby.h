@@ -1,10 +1,7 @@
 #pragma once
 
 #include <cmath>
-#include <concepts>
-#include <cstdlib>  // For std::abs
 #include <string>
-#include <vector>
 
 namespace hobby {
 

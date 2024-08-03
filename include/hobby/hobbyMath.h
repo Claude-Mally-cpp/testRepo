@@ -1,6 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <concepts>
+#include <cstdlib>  // For std::abs
 #include <numeric>
+#include <vector>
 
 namespace hobby {
 
