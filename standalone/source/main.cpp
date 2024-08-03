@@ -1,6 +1,8 @@
 #include <hobby/hobby.h>
 #include <hobby/version.h>
 
+#include <fmt/format.h>
+#include <hobby/hobby.h>
 #include <cxxopts.hpp>
 #include <iostream>
 #include <string>
@@ -31,7 +33,7 @@ auto main(int argc, char** argv) -> int {
   auto result = options.parse(argc, argv);
 
   if (result["help"].as<bool>()) {
-    std::cout << options.help() << std::endl;
+    fmt::print("{}\n", options.help());
     return 0;
   }
 
@@ -47,7 +49,18 @@ auto main(int argc, char** argv) -> int {
   }
 
   hobby::Hobby hobby(name);
+  const auto message =  hobby.greet(langIt->second);
+  fmt::print("{}\n", message);
   std::cout << hobby.greet(langIt->second) << std::endl;
+
+  int number = 144;
+
+  std::vector<int> divisors = hobby::getDivisors(number);
+  std::cout << "Divisors of " << number << " are: ";
+  for (int divisor : divisors) {
+    std::cout << divisor << " ";
+  }
+  std::cout << std::endl;
 
   return 0;
 }
