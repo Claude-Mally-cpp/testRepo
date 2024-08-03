@@ -5,17 +5,17 @@
 #include <string>
 
 TEST_CASE("Hobby") {
-  using namespace hobby;
+    using namespace hobby;
 
-  Hobby hobby("Tests");
+    Hobby hobby("Tests");
 
-  CHECK(hobby.greet(LanguageCode::EN) == "Hello, Tests!");
-  CHECK(hobby.greet(LanguageCode::DE) == "Hallo Tests!");
-  CHECK(hobby.greet(LanguageCode::ES) == "¡Hola Tests!");
-  CHECK(hobby.greet(LanguageCode::FR) == "Bonjour Tests!");
+    CHECK(hobby.greet(LanguageCode::EN) == "Hello, Tests!");
+    CHECK(hobby.greet(LanguageCode::DE) == "Hallo Tests!");
+    CHECK(hobby.greet(LanguageCode::ES) == "¡Hola Tests!");
+    CHECK(hobby.greet(LanguageCode::FR) == "Bonjour Tests!");
 }
 
 TEST_CASE("Hobby version") {
-  static_assert(std::string_view(HOBBY_VERSION) == std::string_view("1.0"));
-  CHECK(std::string(HOBBY_VERSION) == std::string("1.0"));
+    static_assert(std::string_view(HOBBY_VERSION) == std::string_view("1.0"));
+    CHECK(std::string(HOBBY_VERSION) == std::string("1.0"));
 }
