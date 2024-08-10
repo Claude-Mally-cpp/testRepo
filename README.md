@@ -28,7 +28,14 @@ Use the following command to build and run the executable target.
 ```bash
 cmake -S standalone -B build/standalone
 cmake --build build/standalone
-./build/standalone/Hobby --help
+./build/standalone/Hobby -d 144
+```
+
+Or
+
+```bash
+./build_project.sh
+./run_project.sh
 ```
 
 ### Build and run test suite
@@ -43,6 +50,12 @@ CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 ./build/test/HobbyTests
 ```
 
+Or
+
+```bash
+./buildAndRunTests.sh
+```
+
 To collect code coverage information, run CMake with the `-DENABLE_TEST_COVERAGE=1` option.
 
 ### Run clang-format
@@ -51,20 +64,7 @@ Use the following commands from the project's root directory to check and fix C+
 This requires _clang-format_, _cmake-format_ and _pyyaml_ to be installed on the current system.
 
 ```bash
-cmake -S test -B build/test
-
-# view changes
-cmake --build build/test --target format
-
-# apply changes
-cmake --build build/test --target fix-format
-```
-
-See [Format.cmake](https://github.com/TheLartians/Format.cmake) for details.
-These dependencies can be easily installed using pip.
-
-```bash
-pip install clang-format==14.0.6 cmake_format==0.6.11 pyyaml
+./format_project.sh
 ```
 
 ### Build the documentation
