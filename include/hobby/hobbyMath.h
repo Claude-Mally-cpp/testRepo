@@ -65,15 +65,6 @@ inline std::vector<uint64_t> getDivisors(uint64_t n) {
             }
         }
     }
-
-    // If the original number was negative, also add the negative divisors
-    if (n < 0) {
-        size_t size = divisors.size();
-        for (size_t i = 0; i < size; ++i) {
-            divisors.push_back(-divisors[i]);
-        }
-    }
-
     std::sort(divisors.begin(), divisors.end());
     return divisors;
 }
