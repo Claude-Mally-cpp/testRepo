@@ -168,3 +168,18 @@ As there are a lot of possible options and configurations, this is not (yet) in 
 > This is too much, I just want to play with C++ code and test some libraries.
 
 Perhaps the [MiniCppStarter](https://github.com/TheLartians/MiniCppStarter) is something for you!
+
+## Recommended usage
+
+It is easier to develop code without warnings from scratch than to refactor it later. So initially the set of enabled warnings should be as extensive as possible. Specific warnings can be disabled later in the development process if it is decided that it makes sense for the project or if they trigger false positives.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+* **[Craig Scott](https://crascit.com/)** - [Professional CMake](https://crascit.com/professional-cmake/)
+* **[Jason Turner](https://github.com/lefticus)** - [C++ Best Practices](https://lefticus.gitbooks.io/cpp-best-practices/)
+* **[Peter Kolbus](https://github.com/pkolbus)** - [Compiler Warnings](https://github.com/pkolbus/compiler-warnings)
+* **[José Ángel Soler Ortiz](https://github.com/joseasoler)** -[cmake_compiler_warnings](https://github.com/joseasoler/cmake_cpp_warnings)
+
