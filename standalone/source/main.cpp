@@ -4,6 +4,7 @@
 #include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
+#include <cassert>
 #include <cxxopts.hpp>
 #include <iostream>
 #include <string>
