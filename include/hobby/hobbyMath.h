@@ -55,7 +55,7 @@ concept Integral = std::is_integral_v<T>;
 // Function to find all divisors of a given integer
 inline std::vector<uint64_t> getDivisors(uint64_t n) {
     std::vector<uint64_t> divisors;
- 
+
     // Iterate from 1 to the square root of the absolute value of n
     for (uint64_t i = 1; i <= std::sqrt(n); ++i) {
         if (n % i == 0) {  // If i is a divisor

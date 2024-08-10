@@ -74,7 +74,7 @@ auto main(int argc, char** argv) -> int {
         for (size_t index = 0; index < 10; index++) {
             value = hobby::nextPrime(value);
             const auto divisors = hobby::getDivisors(value);
-            assert(divisors.size()==2);
+            assert(divisors.size() == 2);
             fmt::print("{}, ", value);
             value *= 3;
         }

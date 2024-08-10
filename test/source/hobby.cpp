@@ -39,7 +39,8 @@ TEST_CASE("Prime number detector") {
         3079ULL, 3209ULL, 3347ULL, 3491ULL, 3637ULL, 3767ULL, 3911ULL, 4049ULL,
         4211ULL,
 
-        // Primes in the uint32_t & uint64_t range, avoiding values that are close together
+        // Primes in the uint32_t & uint64_t range, avoiding values that are
+        // close together
         104729ULL, 130379ULL, 160481ULL, 456979ULL, 832919ULL, 1827337ULL,
         3267697ULL, 3653081ULL, 4294967311ULL, 12884901947ULL, 38654705849ULL,
         115964117579ULL, 347892352757ULL, 1043677058297ULL, 3131031174907ULL,
@@ -54,7 +55,7 @@ TEST_CASE("Prime number detector") {
         // current);
         CHECK(hobby::isPrime(current));
         if (current > 2) {
-            CHECK(! hobby::isPrime(current + 1));
+            CHECK(!hobby::isPrime(current + 1));
         }
     }
 }
