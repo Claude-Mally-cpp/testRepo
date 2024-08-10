@@ -4,6 +4,7 @@
 #include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
+#include <cassert>
 #include <cxxopts.hpp>
 #include <iostream>
 #include <string>
@@ -21,7 +22,6 @@ auto main(int argc, char** argv) -> int {
 
     std::string language;
     std::string name;
-    std::string divisor;
 
     // clang-format off
   options.add_options()
@@ -29,7 +29,9 @@ auto main(int argc, char** argv) -> int {
     ("v,version", "Print the current version number")
     ("n,name", "Name to greet", cxxopts::value(name)->default_value("World"))
     ("l,lang", "Language code to use", cxxopts::value(language)->default_value("en"))
-    ("d,divisor", "show divisors", cxxopts::value(divisor)->default_value(""))
+    ("d,divisor", "show divisors", cxxopts::value<int64_t>())
+    ("p,prime", "test if prime", cxxopts::value<int64_t>())
+    ("g,generate", "generate an array of 10 primes higher that argument", cxxopts::value<uint64_t>())
   ;
     // clang-format on
 
@@ -56,11 +58,27 @@ auto main(int argc, char** argv) -> int {
     fmt::println("{}", message);
     fmt::println("{}", hobby.greet(langIt->second));
 
-    const auto number = std::atoi(divisor.c_str());
-    if (number) {
-        const auto divisors = hobby::getDivisors(number);
-        fmt::println("Divisors of {} are {{{}}}", number,
+    if (result.count("divisor")) {
+        const auto value = result["divisor"].as<int64_t>();
+        const auto divisors = hobby::getDivisors(value);
+        fmt::println("Divisors of {} are {{{}}}", value,
                      fmt::join(divisors, ", "));
+    }
+    if (result.count("prime")) {
+        const auto value = result["prime"].as<int64_t>();
+        const auto isPrime = hobby::isPrime(value);
+        fmt::println("number {} isPrime={}", value, isPrime);
+    }
+    if (result.count("generate")) {
+        auto value = result["generate"].as<uint64_t>();
+        for (size_t index = 0; index < 10; index++) {
+            value = hobby::nextPrime(value);
+            const auto divisors = hobby::getDivisors(value);
+            assert(divisors.size() == 2);
+            fmt::print("{}, ", value);
+            value *= 3;
+        }
+        fmt::print("\n");
     }
     return 0;
 }

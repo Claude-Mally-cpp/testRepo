@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #include <algorithm>
 #include <concepts>
 #include <cstdlib>  // For std::abs
@@ -51,31 +53,41 @@ template <typename T>
 concept Integral = std::is_integral_v<T>;
 
 // Function to find all divisors of a given integer
-template <Integral T>
-std::vector<T> getDivisors(T n) {
-    std::vector<T> divisors;
-    T abs_n = std::abs(n);  // Take the absolute value of n
+inline std::vector<uint64_t> getDivisors(uint64_t n) {
+    std::vector<uint64_t> divisors;
 
     // Iterate from 1 to the square root of the absolute value of n
-    for (T i = 1; i <= std::sqrt(abs_n); ++i) {
-        if (abs_n % i == 0) {  // If i is a divisor
+    for (uint64_t i = 1; i <= std::sqrt(n); ++i) {
+        if (n % i == 0) {  // If i is a divisor
             divisors.push_back(i);
-            if (i != abs_n / i) {  // If abs_n / i is a different divisor
-                divisors.push_back(abs_n / i);
+            if (i != n / i) {  // If abs_n / i is a different divisor
+                divisors.push_back(n / i);
             }
         }
     }
-
-    // If the original number was negative, also add the negative divisors
-    if (n < 0) {
-        size_t size = divisors.size();
-        for (size_t i = 0; i < size; ++i) {
-            divisors.push_back(-divisors[i]);
-        }
-    }
-
     std::sort(divisors.begin(), divisors.end());
     return divisors;
+}
+
+constexpr bool isPrime(uint64_t n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;  // 2 and 3 are prime
+
+    if (n % 2 == 0 || n % 3 == 0) return false;
+
+    for (uint64_t i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
+    }
+
+    return true;
+}
+
+constexpr uint64_t nextPrime(uint64_t n) {
+    n++;
+    while (!isPrime(n)) {
+        n++;
+    }
+    return n;
 }
 
 };  // namespace hobby
