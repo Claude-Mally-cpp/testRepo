@@ -34,8 +34,8 @@ cmake --build build/standalone
 Or
 
 ```bash
-./build_project.sh
-./run_project.sh
+./buildProject.sh
+./runProject.sh
 ```
 
 ### Build and run test suite
@@ -64,7 +64,7 @@ Use the following commands from the project's root directory to check and fix C+
 This requires _clang-format_, _cmake-format_ and _pyyaml_ to be installed on the current system.
 
 ```bash
-./format_project.sh
+./formatProject.sh
 ```
 
 ### Build the documentation
@@ -168,3 +168,18 @@ As there are a lot of possible options and configurations, this is not (yet) in 
 > This is too much, I just want to play with C++ code and test some libraries.
 
 Perhaps the [MiniCppStarter](https://github.com/TheLartians/MiniCppStarter) is something for you!
+
+## Recommended usage
+
+It is easier to develop code without warnings from scratch than to refactor it later. So initially the set of enabled warnings should be as extensive as possible. Specific warnings can be disabled later in the development process if it is decided that it makes sense for the project or if they trigger false positives.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+* **[Craig Scott](https://crascit.com/)** - [Professional CMake](https://crascit.com/professional-cmake/)
+* **[Jason Turner](https://github.com/lefticus)** - [C++ Best Practices](https://lefticus.gitbooks.io/cpp-best-practices/)
+* **[Peter Kolbus](https://github.com/pkolbus)** - [Compiler Warnings](https://github.com/pkolbus/compiler-warnings)
+* **[José Ángel Soler Ortiz](https://github.com/joseasoler)** -[cmake_compiler_warnings](https://github.com/joseasoler/cmake_cpp_warnings)
+

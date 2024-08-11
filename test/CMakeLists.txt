@@ -15,13 +15,13 @@ include(../cmake/tools.cmake)
 
 include(../cmake/CPM.cmake)
 
-CPMAddPackage("gh:doctest/doctest@2.4.9")
-CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
+cpmaddpackage("gh:doctest/doctest@2.4.9")
+cpmaddpackage("gh:TheLartians/Format.cmake@1.7.3")
 
 if(TEST_INSTALLED_VERSION)
   find_package(Hobby REQUIRED)
 else()
-  CPMAddPackage(NAME Hobby SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
+  cpmaddpackage(NAME Hobby SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 endif()
 
 # ---- Create binary ----
@@ -33,11 +33,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 # enable compiler warnings
 if(NOT TEST_INSTALLED_VERSION)
-  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+  if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                              "GNU")
     target_compile_options(Hobby PUBLIC -Wall -Wpedantic -Wextra -Werror)
   elseif(MSVC)
     target_compile_options(Hobby PUBLIC /W4 /WX)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
+    target_compile_definitions(${PROJECT_NAME}
+                               PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
   endif()
 endif()
 
@@ -45,9 +47,9 @@ endif()
 
 enable_testing()
 
-# Note: doctest and similar testing frameworks can automatically configure CMake tests. For other
-# testing frameworks add the tests target instead: add_test(NAME ${PROJECT_NAME} COMMAND
-# ${PROJECT_NAME})
+# Note: doctest and similar testing frameworks can automatically configure CMake
+# tests. For other testing frameworks add the tests target instead:
+# add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
 
 include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
 doctest_discover_tests(${PROJECT_NAME})
