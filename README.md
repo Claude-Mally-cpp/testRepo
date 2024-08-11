@@ -26,7 +26,7 @@ git@github.com:Claude-Mally-cpp/testRepo
 Use the following command to build and run the executable target.
 
 ```bash
-cmake -S standalone -B build/standalone
+cmake -S standalone -B build/standalone -DUSE_STATIC_ANALYZER="clang-tidy|cppcheck"
 cmake --build build/standalone
 ./build/standalone/Hobby -d 144
 ```
@@ -42,7 +42,7 @@ Or
 
 Use the following commands from the project's root directory to run the test suite.
 ```bash
-cmake -S test -B build/test
+cmake -S test -B build/test -DUSE_STATIC_ANALYZER="clang-tidy|cppcheck"
 cmake --build build/test
 CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 

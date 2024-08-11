@@ -1,0 +1,3 @@
+{
+  "Checks": "-*,modernize-*,performance-*,bugprone-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,portability-*,readability-*"
+}
