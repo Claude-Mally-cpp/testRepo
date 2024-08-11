@@ -34,8 +34,8 @@ cmake --build build/standalone
 Or
 
 ```bash
-./build_project.sh
-./run_project.sh
+./buildProject.sh
+./runProject.sh
 ```
 
 ### Build and run test suite
@@ -64,7 +64,7 @@ Use the following commands from the project's root directory to check and fix C+
 This requires _clang-format_, _cmake-format_ and _pyyaml_ to be installed on the current system.
 
 ```bash
-./format_project.sh
+./formatProject.sh
 ```
 
 ### Build the documentation
