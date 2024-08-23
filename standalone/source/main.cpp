@@ -1,7 +1,7 @@
-#include <fmt/format.h>
+//#include <fmt/format.h>
 #include <fmt/ranges.h>
-#include <hobby/hobby.h>
-#include <hobby/hobbyMath.h>
+#include "hobby.h"
+#include "hobbyMath.h"
 #include <hobby/version.h>
 
 #include <cassert>

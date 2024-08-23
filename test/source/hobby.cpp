@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
-#include <hobby/hobby.h>
-#include <hobby/hobbyMath.h>
+#include "hobby.h"
+#include "hobbyMath.h"
 #include <hobby/version.h>
 
 #include <array>
