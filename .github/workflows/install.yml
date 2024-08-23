@@ -29,17 +29,18 @@ jobs:
 
       - name: build and install library
         run: |
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
+          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
           sudo cmake --build build --target install
+          sudo cmake --install build
           rm -rf build
 
-      - name: configure
-        run: cmake -Stest -Bbuild -DTEST_INSTALLED_VERSION=1 -DCMAKE_PREFIX_PATH=/usr/local
+      - name: configure tests with installed library
+        run: cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1
 
-      - name: build
-        run: cmake --build build --config Debug -j4
+      - name: build tests
+        run: cmake --build build/test --config Debug -j4
 
-      - name: test
+      - name: run tests
         run: |
-          cd build
+          cd build/test
           ctest --build-config Debug
