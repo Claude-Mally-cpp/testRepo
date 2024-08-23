@@ -37,10 +37,7 @@ cpmaddpackage(
 )
 
 # ---- Add source files ----
-set(sources
-    source/hobby.cpp
-    source/hobbyMath.cpp
-)
+set(sources source/hobby.cpp source/hobbyMath.cpp)
 
 # ---- Create library ----
 
@@ -60,25 +57,23 @@ target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
 # Link dependencies
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/hobby/>
-    $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>
-)
-# target_include_directories(
-#   ${PROJECT_NAME}
-#   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-#          $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
+target_include_directories(
+  ${PROJECT_NAME}
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/hobby/>
+         $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
+# target_include_directories( ${PROJECT_NAME} PUBLIC
+# $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+# $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
 
-# message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
-# message(STATUS "PROJECT_NAME: ${PROJECT_NAME}")
-# message(STATUS "PROJECT_VERSION: ${PROJECT_VERSION}")
-# message(STATUS "Include Directories: ${PROJECT_INCLUDE_DIRS}")
+# message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}") message(STATUS
+# "PROJECT_NAME: ${PROJECT_NAME}") message(STATUS "PROJECT_VERSION:
+# ${PROJECT_VERSION}") message(STATUS "Include Directories:
+# ${PROJECT_INCLUDE_DIRS}")
 message("Include directories: ${CMAKE_INCLUDE_PATH}")
 # message(STATUS "Current Working Directory: ${CMAKE_CURRENT_SOURCE_DIR}")
 
-# set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
-# message(STATUS "Full Include Directory: ${INCLUDE_DIR}")
+# set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include") message(STATUS "Full Include
+# Directory: ${INCLUDE_DIR}")
 
 # ---- Create an installable target ----
 # this allows users to install and find the library via `find_package()`.

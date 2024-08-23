@@ -31,7 +31,8 @@ add_executable(${PROJECT_NAME} ${sources})
 
 if(TEST_INSTALLED_VERSION)
   # Add the installed include directories to the test target
-  target_include_directories(${PROJECT_NAME} PRIVATE /usr/local/include /usr/include)
+  target_include_directories(${PROJECT_NAME} PRIVATE /usr/local/include
+                                                     /usr/include)
 endif()
 
 target_link_libraries(${PROJECT_NAME} doctest::doctest Hobby::Hobby fmt::fmt)
