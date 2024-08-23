@@ -2,7 +2,6 @@
 
 namespace hobby {
 
-
 std::vector<uint64_t> getDivisors(uint64_t n) {
     std::vector<uint64_t> divisors;
 
@@ -33,4 +32,4 @@ size_t getDivisorsCount(uint64_t n) {
     return count;
 }
 
-} // namespace hobby
+}  // namespace hobby
