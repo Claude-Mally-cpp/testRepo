@@ -35,7 +35,11 @@ jobs:
           rm -rf build
 
       - name: configure tests with installed library
-        run: cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1
+        run: |
+          cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1 \
+                -DCMAKE_PREFIX_PATH="/usr/local;/usr" \
+                -DCMAKE_INCLUDE_PATH="/usr/local/include;/usr/include" \
+                -DCMAKE_LIBRARY_PATH="/usr/local/lib;/usr/lib"
 
       - name: build tests
         run: cmake --build build/test --config Debug -j4
