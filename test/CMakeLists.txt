@@ -28,6 +28,11 @@ endif()
 
 file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 add_executable(${PROJECT_NAME} ${sources})
+
+# Ensure the test target includes the header files
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../include)
+
+# Link against the main Hobby library and doctest
 target_link_libraries(${PROJECT_NAME} doctest::doctest Hobby::Hobby)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
