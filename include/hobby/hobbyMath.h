@@ -8,6 +8,8 @@
 #include <numeric>
 #include <vector>
 
+#include <hobby/hobby.h>
+
 namespace hobby {
 
 // Base case for recursion, returns the GCD of two integers
@@ -52,22 +54,14 @@ static_assert(lcm(24, -24, 0) == 0);
 template <typename T>
 concept Integral = std::is_integral_v<T>;
 
-// Function to find all divisors of a given integer
-inline std::vector<uint64_t> getDivisors(uint64_t n) {
-    std::vector<uint64_t> divisors;
+/// @brief Function to find all divisors of a given number
+/// @param number for divisor gathering
+std::vector<uint64_t> getDivisors(uint64_t number);
 
-    // Iterate from 1 to the square root of the absolute value of n
-    for (uint64_t i = 1; i <= std::sqrt(n); ++i) {
-        if (n % i == 0) {  // If i is a divisor
-            divisors.push_back(i);
-            if (i != n / i) {  // If abs_n / i is a different divisor
-                divisors.push_back(n / i);
-            }
-        }
-    }
-    std::sort(divisors.begin(), divisors.end());
-    return divisors;
-}
+/// @brief get the number of divisors for given number
+/// @param number for divisor counting
+/// @return total number of divisors. if less than 3 then the number is prime
+size_t getDivisorsCount(uint64_t n);
 
 constexpr bool isPrime(uint64_t n) {
     if (n <= 1) return false;

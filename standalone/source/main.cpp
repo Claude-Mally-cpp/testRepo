@@ -1,7 +1,5 @@
-#include <fmt/format.h>
+// #include <fmt/format.h>
 #include <fmt/ranges.h>
-#include <hobby/hobby.h>
-#include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
 #include <cassert>
@@ -9,6 +7,9 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+
+#include <hobby/hobby.h>
+#include <hobby/hobbyMath.h>
 
 auto main(int argc, char** argv) -> int {
     try {

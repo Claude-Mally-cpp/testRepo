@@ -29,11 +29,13 @@ endif()
 file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 add_executable(${PROJECT_NAME} ${sources})
 
-# Ensure the test target includes the header files
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../include)
+if(TEST_INSTALLED_VERSION)
+  # Add the installed include directories to the test target
+  target_include_directories(${PROJECT_NAME} PRIVATE /usr/local/include
+                                                     /usr/include)
+endif()
 
-# Link against the main Hobby library and doctest
-target_link_libraries(${PROJECT_NAME} doctest::doctest Hobby::Hobby)
+target_link_libraries(${PROJECT_NAME} doctest::doctest Hobby::Hobby fmt::fmt)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 # enable compiler warnings
@@ -51,10 +53,6 @@ endif()
 # ---- Add HobbyTests ----
 
 enable_testing()
-
-# Note: doctest and similar testing frameworks can automatically configure CMake
-# tests. For other testing frameworks add the tests target instead:
-# add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
 
 include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
 doctest_discover_tests(${PROJECT_NAME})

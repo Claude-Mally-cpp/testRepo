@@ -1,17 +1,4 @@
 #include <hobby/hobby.h>
-#include <hobby/hobbyMath.h>
-
-/// @todo put this hack in a seperate header file
-#ifdef _MSC_VER  // Check if the compiler is MSVC (Windows)
-#    pragma warning(push)
-#    pragma warning(disable : 4459)
-#endif
-
-#include <fmt/format.h>
-
-#ifdef _MSC_VER
-#    pragma warning(pop)
-#endif
 
 using namespace hobby;
 

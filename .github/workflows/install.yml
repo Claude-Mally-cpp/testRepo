@@ -29,24 +29,17 @@ jobs:
 
       - name: build and install library
         run: |
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
-          sudo cmake --build build --target install
-          echo "Installed files:"
-          sudo find /usr/local/include/hobby -type f
+          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
+          sudo cmake --build build --target install --verbose
           rm -rf build
 
-      - name: configure tests
-        run: |
-          cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1 -DCMAKE_PREFIX_PATH=/usr/local
-          echo "Include directories during configure:"
-          cmake --system-information | grep "CMAKE_CXX_FLAGS"
-          find /usr/local/include/hobby
+      - name: configure
+        run: cmake -Stest -Bbuild -DTEST_INSTALLED_VERSION=1 -DCMAKE_VERBOSE_MAKEFILE=ON
 
-      - name: build tests with diagnostics
-        run: |
-          cmake --build build/test --config Debug -j4 --verbose
+      - name: build
+        run: cmake --build build --config Debug -j4 --verbose
 
-      - name: run tests
+      - name: test
         run: |
-          cd build/test
-          ctest --build-config Debug
+          cd build
+          ctest --build-config Debug --verbose
