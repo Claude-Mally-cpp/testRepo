@@ -67,6 +67,17 @@ target_include_directories(
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
 
+# ---- Install the library ----
+
+install(TARGETS Hobby EXPORT HobbyConfig
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
+)
+
+install(DIRECTORY include/hobby/ DESTINATION include/hobby)
+
 # ---- Create an installable target ----
 # this allows users to install and find the library via `find_package()`.
 
