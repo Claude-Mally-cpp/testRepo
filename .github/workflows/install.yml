@@ -34,4 +34,19 @@ jobs:
           rm -rf build
 
       - name: configure tests
-        run: cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1 -DCMAKE_PREFIX_PATH=/
+        run: cmake -Stest -Bbuild/test -DTEST_INSTALLED_VERSION=1 -DCMAKE_PREFIX_PATH=/usr/local
+
+      - name: clean build directory
+        run: rm -rf build/test
+
+      - name: build tests with diagnostics
+        run: |
+          cmake --build build/test --config Debug -j4 -- -DCMAKE_VERBOSE_MAKEFILE=ON
+          echo "Include directories for HobbyTests:"
+          cmake --system-information | grep "CMAKE_CXX_FLAGS"
+          find /usr/local/include/hobby
+
+      - name: run tests
+        run: |
+          cd build/test
+          ctest --build-config Debug
