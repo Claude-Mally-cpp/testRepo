@@ -32,5 +32,7 @@ jobs:
       - name: configure
         run: cmake -Stest -Bbuild
 
-      - name: check style
-        run: cmake --build build --target check-format
+      - name: Check style with verbosity
+        run: |
+          cmake-format -vv -c .cmake-format.yaml ./CMakeLists.txt
+          cmake --build build --target check-format
