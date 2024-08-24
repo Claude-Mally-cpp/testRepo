@@ -1,4 +1,4 @@
-#include "hobby.h"
+#include <hobby/hobby.h>
 
 using namespace hobby;
 

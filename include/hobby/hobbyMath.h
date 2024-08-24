@@ -8,7 +8,7 @@
 #include <numeric>
 #include <vector>
 
-#include "hobby.h"
+#include <hobby/hobby.h>
 
 namespace hobby {
 

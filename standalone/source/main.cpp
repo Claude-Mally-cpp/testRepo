@@ -8,8 +8,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "hobby.h"
-#include "hobbyMath.h"
+#include <hobby/hobby.h>
+#include <hobby/hobbyMath.h>
 
 auto main(int argc, char** argv) -> int {
     try {

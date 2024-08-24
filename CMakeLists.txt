@@ -37,16 +37,21 @@ cpmaddpackage(
 )
 
 # ---- Add source files ----
-set(sources source/hobby.cpp source/hobbyMath.cpp)
+
+# Note: globbing sources is considered bad practice as CMake's generators may
+# not detect new files automatically. Keep that in mind when changing files, or
+# explicitly mention them here.
+file(GLOB_RECURSE headers CONFIGURE_DEPENDS
+     "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS
+     "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 
 # ---- Create library ----
 
 # Note: for header-only libraries change all PUBLIC flags to INTERFACE and
 # create an interface target: add_library(${PROJECT_NAME} INTERFACE)
-add_library(${PROJECT_NAME} STATIC ${sources})
+add_library(${PROJECT_NAME} ${headers} ${sources})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
-
-include(cmake/CPM.cmake)
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
 
@@ -59,21 +64,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
 target_include_directories(
   ${PROJECT_NAME}
-  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/hobby/>
+  PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
-# target_include_directories( ${PROJECT_NAME} PUBLIC
-# $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-# $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
-
-# message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}") message(STATUS
-# "PROJECT_NAME: ${PROJECT_NAME}") message(STATUS "PROJECT_VERSION:
-# ${PROJECT_VERSION}") message(STATUS "Include Directories:
-# ${PROJECT_INCLUDE_DIRS}")
-message("Include directories: ${CMAKE_INCLUDE_PATH}")
-# message(STATUS "Current Working Directory: ${CMAKE_CURRENT_SOURCE_DIR}")
-
-# set(INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include") message(STATUS "Full Include
-# Directory: ${INCLUDE_DIR}")
 
 # ---- Create an installable target ----
 # this allows users to install and find the library via `find_package()`.

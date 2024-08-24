@@ -1,4 +1,4 @@
-#include "hobbyMath.h"
+#include <hobby/hobbyMath.h>
 
 namespace hobby {
 

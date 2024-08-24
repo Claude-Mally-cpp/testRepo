@@ -1,12 +1,11 @@
-#include "hobby.h"
+#include <hobby/hobby.h>
+#include <hobby/hobbyMath.h>
 
 #include <doctest/doctest.h>
 #include <hobby/version.h>
 
 #include <array>
 #include <string>
-
-#include "hobbyMath.h"
 
 TEST_CASE("Hobby") {
     using namespace hobby;
