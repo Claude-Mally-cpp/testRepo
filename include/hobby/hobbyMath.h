@@ -1,5 +1,6 @@
 #pragma once
 
+#include <hobby/hobby.h>
 #include <stdint.h>
 
 #include <algorithm>
@@ -7,8 +8,6 @@
 #include <cstdlib>  // For std::abs
 #include <numeric>
 #include <vector>
-
-#include <hobby/hobby.h>
 
 namespace hobby {
 
