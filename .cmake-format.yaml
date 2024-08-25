@@ -2,3 +2,12 @@ format:
   line_width: 80
   tab_size: 2
   use_tabchars: false
+
+include:
+  - '**/*.cmake'
+  - 'CMakeLists.txt'
+
+exclude:
+  - 'build/**/*'
+  - '_deps/**/*'
+  - 'CPM_modules/**/*'
