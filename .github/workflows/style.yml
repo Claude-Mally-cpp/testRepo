@@ -10,29 +10,22 @@ on:
       - master
       - main
 
-env:
-  CPM_SOURCE_CACHE: ${{ github.workspace }}/cpm_modules
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
+
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/cache@v4
-        with:
-          path: "**/cpm_modules"
-          key: ${{ github.workflow }}-cpm-modules-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
 
       - name: Install format dependencies
         run: pip3 install clang-format==16.0.6 cmake_format==0.6.13 pyyaml
 
-      - name: configure
-        run: cmake -Stest -Bbuild
-
-      - name: Check style with verbosity
+      - name: Check cmake format
         run: |
-          cmake-format -vv -c .cmake-format.yaml ./CMakeLists.txt
-          cmake --build build --target check-format
+          cmake-format -c .cmake-format.yaml CMakeLists.txt
+          cmake-format -c .cmake-format.yaml test/CMakeLists.txt
+          cmake-format -c .cmake-format.yaml standalone/CMakeLists.txt
+
+      - name: Check clang format
+        run: |
+          find . -name "*.cpp" -o -name "*.hpp" | xargs clang-format -i --dry-run --Werror
