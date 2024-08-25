@@ -69,12 +69,14 @@ target_include_directories(
 
 # ---- Install the library ----
 
-install(TARGETS Hobby EXPORT HobbyConfig
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
-    RUNTIME DESTINATION bin
-    INCLUDES DESTINATION include
-)
+install(
+  TARGETS Hobby
+  EXPORT HobbyConfig
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES
+  DESTINATION include)
 
 install(DIRECTORY include/hobby/ DESTINATION include/hobby)
 
