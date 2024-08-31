@@ -95,14 +95,14 @@ TEST_CASE("Testing invalid dice creation") {
 }
 
 TEST_CASE("Testing type consistency") {
-    // Create a dice with 10 sides, using uint8_t as the type
-    dice<uint8_t> d10(10);
+    // Create a dice with 10 sides, using uint16_t as the type
+    dice<uint16_t> d10(10);
 
-    // Check that roll() returns a value of type uint8_t
+    // Check that roll() returns a value of type uint16_t
     auto rollResult = d10.roll();
-    CHECK(std::is_same<decltype(rollResult), uint8_t>::value);
+    CHECK(std::is_same<decltype(rollResult), uint16_t>::value);
 
-    // Check that getSides() returns a value of type uint8_t
+    // Check that getSides() returns a value of type uint16_t
     auto sidesResult = d10.getSides();
-    CHECK(std::is_same<decltype(sidesResult), uint8_t>::value);
+    CHECK(std::is_same<decltype(sidesResult), uint16_t>::value);
 }
