@@ -1,12 +1,14 @@
 // #include <fmt/format.h>
 #include <fmt/ranges.h>
 #include <hobby/hobby.h>
+#include <hobby/hobbyDice.h>
 #include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
 #include <cassert>
 #include <cxxopts.hpp>
-#include <iostream>
+// #include <iostream>
+// #include <ranges>
 #include <string>
 #include <unordered_map>
 
@@ -32,6 +34,7 @@ auto main(int argc, char** argv) -> int {
     ("l,lang", "Language code to use", cxxopts::value(language)->default_value("en"))
     ("d,divisor", "show divisors", cxxopts::value<int64_t>())
     ("p,prime", "test if prime", cxxopts::value<int64_t>())
+    ("r,random", "throw a N sided dice", cxxopts::value<uint64_t>())
     ("g,generate", "generate an array of 10 primes higher that argument", cxxopts::value<uint64_t>())
   ;
         // clang-format on
@@ -81,6 +84,26 @@ auto main(int argc, char** argv) -> int {
                 value *= 3;
             }
             fmt::print("\n");
+        }
+        if (result.count("random")) {
+            const auto diceSides = result["random"].as<uint64_t>();
+            if (not diceSides) {
+                fmt::println(stderr,
+                             "random requires a non-zero number of dice sides");
+                return -1;
+            }
+            const auto rollCount = 16;
+            fmt::print("here are {} random values between 1 and {}: {{",
+                       rollCount, diceSides);
+            hobby::dice dice(diceSides);
+            for (auto iteration = 0; iteration < rollCount; ++iteration) {
+                const auto value = dice.roll();
+                fmt::print("{}", value);
+                if (iteration != (rollCount - 1)) {
+                    fmt::print(", ");
+                }
+            }
+            fmt::println("}}");
         }
     } catch (std::exception except) {
         fmt::println("caught exception {}", except.what());

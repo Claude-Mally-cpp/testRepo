@@ -1,5 +1,6 @@
 #include <doctest/doctest.h>
 #include <hobby/hobby.h>
+#include <hobby/hobbyDice.h>
 #include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
@@ -58,4 +59,50 @@ TEST_CASE("Prime number detector") {
             CHECK(!hobby::isPrime(current + 1));
         }
     }
+}
+
+using hobby::dice;
+
+TEST_CASE("Testing valid dice creation and rolling") {
+    // Create a dice with 6 sides, default type uint32_t
+    dice<> d6(6);
+    CHECK(d6.getSides() == 6);
+
+    // Roll the dice multiple times and check the results are within the valid
+    // range
+    for (int i = 0; i < 100; ++i) {
+        uint32_t result = d6.roll();
+        CHECK(result >= 1);
+        CHECK(result <= 6);
+    }
+
+    // Create a dice with 20 sides, using uint16_t as the type
+    dice<uint16_t> d20(20);
+    CHECK(d20.getSides() == 20);
+
+    // Roll the dice multiple times and check the results are within the valid
+    // range
+    for (int i = 0; i < 100; ++i) {
+        uint16_t result = d20.roll();
+        CHECK(result >= 1);
+        CHECK(result <= 20);
+    }
+}
+
+TEST_CASE("Testing invalid dice creation") {
+    // Attempt to create a dice with 0 sides and expect an exception
+    CHECK_THROWS_AS(dice<>(0), std::invalid_argument);
+}
+
+TEST_CASE("Testing type consistency") {
+    // Create a dice with 10 sides, using uint16_t as the type
+    dice<uint16_t> d10(10);
+
+    // Check that roll() returns a value of type uint16_t
+    auto rollResult = d10.roll();
+    CHECK(std::is_same<decltype(rollResult), uint16_t>::value);
+
+    // Check that getSides() returns a value of type uint16_t
+    auto sidesResult = d10.getSides();
+    CHECK(std::is_same<decltype(sidesResult), uint16_t>::value);
 }
