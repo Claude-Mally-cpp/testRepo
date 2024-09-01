@@ -9,7 +9,7 @@ template <std::unsigned_integral T = uint32_t>
 class dice {
    public:
     // Constructor that accepts the number of sides as a runtime parameter
-    explicit dice(T sides) : sides(sides), generator(randomDevice()) {
+    explicit dice(T sides) : generator(randomDevice()), sides(sides) {
         if (sides == 0) {
             throw std::invalid_argument(
                 "Number of sides must be greater than zero");
