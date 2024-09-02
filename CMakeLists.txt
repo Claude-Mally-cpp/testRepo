@@ -36,21 +36,38 @@ cpmaddpackage(
   "FMT_INSTALL YES" # create an installable target
 )
 
+# Add SFML 2.6.1 as a dependency
+CPMAddPackage(
+    NAME SFML
+    VERSION 2.6.1
+    GIT_TAG 2.6.1
+    GITHUB_REPOSITORY SFML/SFML
+    OPTIONS
+        "SFML_BUILD_GRAPHICS ON"
+        "SFML_BUILD_AUDIO ON"
+        "SFML_BUILD_WINDOW ON"
+        "SFML_BUILD_NETWORK OFF"
+        "SFML_BUILD_EXAMPLES OFF"
+        "SFML_USE_SYSTEM_DEPS OFF"
+)
+
 # ---- Add source files ----
 
-# Note: globbing sources is considered bad practice as CMake's generators may
-# not detect new files automatically. Keep that in mind when changing files, or
-# explicitly mention them here.
-file(GLOB_RECURSE headers CONFIGURE_DEPENDS
-     "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS
-     "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
+set(headers
+    "include/hobby/hobby.h"
+    "include/hobby/hobbyDice.h"
+    "include/hobby/hobbyMath.h"
+)
+
+set(sources
+    "source/hobby.cpp"
+    "source/hobbyMath.cpp"
+)
 
 # ---- Create library ----
+add_library(${PROJECT_NAME})
 
-# Note: for header-only libraries change all PUBLIC flags to INTERFACE and
-# create an interface target: add_library(${PROJECT_NAME} INTERFACE)
-add_library(${PROJECT_NAME} ${headers} ${sources})
+target_sources(${PROJECT_NAME} PUBLIC ${headers} PRIVATE ${sources})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
@@ -62,10 +79,14 @@ target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
 # Link dependencies
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
+# Link SFML to your project
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-audio)
+
 target_include_directories(
   ${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-         $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
+         $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>
+         PRIVATE ${SFML_INCLUDE_DIR})
 
 # ---- Install the library ----
 
