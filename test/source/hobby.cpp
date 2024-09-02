@@ -1,10 +1,10 @@
 #include <doctest/doctest.h>
-#include <hobby/hobby.h>
-#include <hobby/hobbyDice.h>
-#include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
 #include <array>
+#include <hobby/hobby.hpp>
+#include <hobby/hobbyDice.hpp>
+#include <hobby/hobbyMath.hpp>
 #include <string>
 
 TEST_CASE("Hobby") {

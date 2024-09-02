@@ -1,12 +1,12 @@
 // #include <fmt/format.h>
 #include <fmt/ranges.h>
-#include <hobby/hobby.h>
-#include <hobby/hobbyDice.h>
-#include <hobby/hobbyMath.h>
 #include <hobby/version.h>
 
 #include <cassert>
 #include <cxxopts.hpp>
+#include <hobby/hobby.hpp>
+#include <hobby/hobbyDice.hpp>
+#include <hobby/hobbyMath.hpp>
 // #include <iostream>
 // #include <ranges>
 #include <string>

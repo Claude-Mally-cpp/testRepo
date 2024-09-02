@@ -54,9 +54,9 @@ CPMAddPackage(
 # ---- Add source files ----
 
 set(headers
-    "include/hobby/hobby.h"
-    "include/hobby/hobbyDice.h"
-    "include/hobby/hobbyMath.h"
+    "include/hobby/hobby.hpp"
+    "include/hobby/hobbyDice.hpp"
+    "include/hobby/hobbyMath.hpp"
 )
 
 set(sources
