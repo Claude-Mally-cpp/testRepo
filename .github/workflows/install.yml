@@ -22,15 +22,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Install system dependencies required by SFML
+      # Enable the universe repository and install system dependencies required by SFML
       - name: Install Linux dependencies
-        run: sudo apt-get update && sudo apt-get install -y \
-          libx11-dev \
-          libxrandr-dev \
-          libxcursor-dev \
-          libxi-dev \
-          libudev-dev \
-          libgl1-mesa-dev
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get update
+          sudo apt-get install -y \
+            libx11-dev \
+            libxrandr-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libudev-dev \
+            libgl1-mesa-dev
 
       - name: Install vcpkg
         run: |
