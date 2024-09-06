@@ -65,7 +65,7 @@ set(sources
 )
 
 # ---- Create library ----
-add_library(${PROJECT_NAME} ${headers} ${sources})
+add_library(${PROJECT_NAME} STATIC ${headers} ${sources})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
