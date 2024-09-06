@@ -25,12 +25,12 @@ jobs:
       - name: Install vcpkg
         run: |
           git clone https://github.com/microsoft/vcpkg.git
-          .\vcpkg\bootstrap-vcpkg.bat
+          ./vcpkg/bootstrap-vcpkg.sh
 
       - name: Install OpenGL and SFML
         run: |
-          .\vcpkg\vcpkg.exe install opengl sfml
-          .\vcpkg\vcpkg.exe integrate install
+          ./vcpkg/vcpkg install opengl sfml
+          ./vcpkg/vcpkg integrate install
 
       - uses: actions/cache@v4
         with:
