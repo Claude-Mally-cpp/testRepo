@@ -22,34 +22,41 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Install vcpkg
       - name: Install vcpkg
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           ./vcpkg/bootstrap-vcpkg.sh
 
+      # Install OpenGL and SFML using vcpkg
       - name: Install OpenGL and SFML
         run: |
           ./vcpkg/vcpkg install opengl sfml
           ./vcpkg/vcpkg integrate install
 
+      # Cache for CPM modules
       - uses: actions/cache@v4
         with:
           path: "**/cpm_modules"
           key: ${{ github.workflow }}-cpm-modules-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake') }}
 
-      - name: build and install library
+      # Build and install the library
+      - name: Build and install library
         run: |
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
           sudo cmake --build build --target install --verbose
           rm -rf build
 
-      - name: configure
-        run: cmake -Stest -Bbuild -DTEST_INSTALLED_VERSION=1 -DCMAKE_VERBOSE_MAKEFILE=ON
+      # Configure tests (running with the installed version)
+      - name: Configure tests
+        run: cmake -S test -B build -DTEST_INSTALLED_VERSION=1 -DCMAKE_VERBOSE_MAKEFILE=ON
 
-      - name: build
+      # Build the tests
+      - name: Build tests
         run: cmake --build build --config Debug -j4 --verbose
 
-      - name: test
+      # Run the tests
+      - name: Run tests
         run: |
           cd build
           ctest --build-config Debug --verbose
