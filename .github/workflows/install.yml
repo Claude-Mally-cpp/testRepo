@@ -22,6 +22,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          .\vcpkg\bootstrap-vcpkg.bat
+
+      - name: Install OpenGL and SFML
+        run: |
+          .\vcpkg\vcpkg.exe install opengl sfml
+          .\vcpkg\vcpkg.exe integrate install
+
       - uses: actions/cache@v4
         with:
           path: "**/cpm_modules"
