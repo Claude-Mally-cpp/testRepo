@@ -34,7 +34,9 @@ jobs:
             libxi-dev \
             libudev-dev \
             libgl1-mesa-dev \
-            libopenal-dev
+            libopenal-dev \
+            libvorbis-dev \
+            libogg-dev
 
       - name: Install vcpkg
         run: |
