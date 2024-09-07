@@ -37,7 +37,7 @@ jobs:
             libopenal-dev \
             libvorbis-dev \
             libogg-dev \
-            ibflac-dev
+            libflac-dev
 
       - name: Install vcpkg
         run: |
