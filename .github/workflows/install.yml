@@ -36,7 +36,8 @@ jobs:
             libgl1-mesa-dev \
             libopenal-dev \
             libvorbis-dev \
-            libogg-dev
+            libogg-dev \
+            ibflac-dev
 
       - name: Install vcpkg
         run: |
