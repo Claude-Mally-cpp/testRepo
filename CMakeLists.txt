@@ -48,7 +48,7 @@ CPMAddPackage(
         "SFML_BUILD_WINDOW ON"
         "SFML_BUILD_NETWORK OFF"
         "SFML_BUILD_EXAMPLES OFF"
-        "SFML_USE_SYSTEM_DEPS OFF"
+        "SFML_USE_SYSTEM_DEPS ON"
 )
 
 # ---- Add source files ----
@@ -63,6 +63,8 @@ set(sources
     "source/hobby.cpp"
     "source/hobbyMath.cpp"
 )
+
+find_package(SFML COMPONENTS graphics window audio REQUIRED)
 
 # ---- Create library ----
 add_library(${PROJECT_NAME} STATIC ${headers} ${sources})
