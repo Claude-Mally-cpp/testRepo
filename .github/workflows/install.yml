@@ -39,16 +39,6 @@ jobs:
             libogg-dev \
             libflac-dev
 
-      - name: Install vcpkg
-        run: |
-          git clone https://github.com/microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh
-
-      - name: Install OpenGL and SFML
-        run: |
-          ./vcpkg/vcpkg install opengl sfml
-          ./vcpkg/vcpkg integrate install
-
       - uses: actions/cache@v4
         with:
           path: "**/cpm_modules"

@@ -48,7 +48,7 @@ CPMAddPackage(
         "SFML_BUILD_WINDOW ON"
         "SFML_BUILD_NETWORK OFF"
         "SFML_BUILD_EXAMPLES OFF"
-        "SFML_USE_SYSTEM_DEPS ON"
+        "SFML_USE_SYSTEM_DEPS OFF"
 )
 
 # ---- Add source files ----
