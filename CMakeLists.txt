@@ -6,6 +6,10 @@ project(Hobby VERSION 1.0 LANGUAGES CXX)
 # ---- Add dependencies via CPM ----
 include(cmake/CPM.cmake)
 
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Default install path" FORCE)
+endif()
+
 # PackageProject.cmake will be used to make our target installable
 cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.8.0")
 
