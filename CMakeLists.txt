@@ -1,25 +1,9 @@
 cmake_minimum_required(VERSION 3.14...3.22)
 
-# ---- Project ----
-
-# Note: update this to your new project's name and version
-project(
-  Hobby
-  VERSION 1.0
-  LANGUAGES CXX)
-
-# ---- Include guards ----
-
-if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
-  message(
-    FATAL_ERROR
-      "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there."
-  )
-endif()
+# Define project name explicitly as Hobby
+project(Hobby VERSION 1.0 LANGUAGES CXX)
 
 # ---- Add dependencies via CPM ----
-# see https://github.com/TheLartians/CPM.cmake for more info
-
 include(cmake/CPM.cmake)
 
 # PackageProject.cmake will be used to make our target installable
@@ -51,8 +35,13 @@ CPMAddPackage(
         "SFML_USE_SYSTEM_DEPS OFF"
 )
 
-# ---- Add source files ----
+# ---- Debugging step: List all CMake targets ----
+get_cmake_property(_variableNames TARGETS)
+foreach (_variableName ${_variableNames})
+    message(STATUS "CMake target: ${_variableName}")
+endforeach()
 
+# ---- Add source files ----
 set(headers
     "include/hobby/hobby.hpp"
     "include/hobby/hobbyDice.hpp"
@@ -64,8 +53,6 @@ set(sources
     "source/hobbyMath.cpp"
 )
 
-find_package(SFML COMPONENTS graphics window audio REQUIRED)
-
 # ---- Create library ----
 add_library(${PROJECT_NAME} STATIC ${headers} ${sources})
 
@@ -73,25 +60,18 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
 
-# being a cross-platform target, we enforce standards conformance on MSVC
-# target_compile_options(${PROJECT_NAME} PUBLIC
-# "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/permissive->")
-
 # Link dependencies
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 
-# Link SFML to your project
-target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-audio)
-
+# Include directories
 target_include_directories(
   ${PROJECT_NAME}
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:include/${PROJECT_NAME}-${PROJECT_VERSION}>)
 
 # ---- Install the library ----
-
 install(
-  TARGETS Hobby
+  TARGETS ${PROJECT_NAME}
   EXPORT HobbyConfig
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -103,10 +83,6 @@ install(
 install(DIRECTORY include/hobby/ DESTINATION include/hobby)
 
 # ---- Create an installable target ----
-# this allows users to install and find the library via `find_package()`.
-
-# the location where the project's version header will be placed should match
-# the project's regular header paths
 string(TOLOWER ${PROJECT_NAME}/version.h VERSION_HEADER_LOCATION)
 
 packageproject(
@@ -127,4 +103,5 @@ packageproject(
   COMPATIBILITY
   SameMajorVersion
   DEPENDENCIES
-  "fmt 11.0.2")
+  "fmt 11.0.2"
+)

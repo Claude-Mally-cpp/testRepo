@@ -3,11 +3,9 @@ cmake_minimum_required(VERSION 3.14...3.22)
 project(HobbyStandalone LANGUAGES CXX)
 
 # --- Import tools ----
-
 include(../cmake/tools.cmake)
 
 # ---- Dependencies ----
-
 include(../cmake/CPM.cmake)
 
 cpmaddpackage(
@@ -42,4 +40,4 @@ add_executable(${PROJECT_NAME} ${sources})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20 OUTPUT_NAME
                                                                  "Hobby")
 
-target_link_libraries(${PROJECT_NAME} Hobby::Hobby cxxopts fmt::fmt)
+target_link_libraries(${PROJECT_NAME} Hobby cxxopts fmt::fmt)

@@ -51,7 +51,9 @@ jobs:
           rm -rf build
 
       - name: configure
-        run: cmake -Stest -Bbuild -DTEST_INSTALLED_VERSION=1 -DCMAKE_VERBOSE_MAKEFILE=ON -DSFML_DIR=/usr/lib/cmake/SFML
+        run: |
+          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
+          cmake --build build --target install --verbose
 
       - name: build
         run: cmake --build build --config Debug -j4 --verbose
