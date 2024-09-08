@@ -96,8 +96,9 @@ install(
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
-  INCLUDES
-  DESTINATION include)
+  INCLUDES DESTINATION include
+  COMPONENT sfml-graphics sfml-window sfml-audio
+)
 
 install(DIRECTORY include/hobby/ DESTINATION include/hobby)
 
