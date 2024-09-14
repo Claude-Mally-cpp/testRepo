@@ -10,6 +10,8 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Default install path" FORCE)
 endif()
 
+set(CPM_FORCE_BUILD TRUE)
+
 # PackageProject.cmake will be used to make our target installable
 cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.8.0")
 

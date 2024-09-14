@@ -26,7 +26,11 @@ jobs:
         run: |
           sudo chmod -R 777 /home/runner/work/testRepo/testRepo
 
-    # Enable the universe repository and install system dependencies required by SFML
+      - name: Clean previous cache
+        run: |
+          sudo rm -rf /home/runner/work/testRepo/testRepo/build/_deps
+
+        # Enable the universe repository and install system dependencies required by SFML
       - name: Install Linux dependencies
         run: |
           sudo add-apt-repository universe
