@@ -30,7 +30,7 @@ jobs:
         run: |
           sudo rm -rf /home/runner/work/testRepo/testRepo/build/_deps
 
-        # Enable the universe repository and install system dependencies required by SFML
+      # Enable the universe repository and install system dependencies required by SFML
       - name: Install Linux dependencies
         run: |
           sudo add-apt-repository universe
@@ -54,16 +54,8 @@ jobs:
 
       - name: build and install library
         run: |
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
-          sudo cmake --build build --target install --verbose
-
-      - name: configure
-        run: |
-          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
+          cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/install
           cmake --build build --target install --verbose
-
-      - name: build
-        run: cmake --build build --config Debug -j4 --verbose
 
       - name: test
         run: |

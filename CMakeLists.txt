@@ -6,6 +6,7 @@ project(Hobby VERSION 1.0 LANGUAGES CXX)
 # ---- Add dependencies via CPM ----
 include(cmake/CPM.cmake)
 
+# Set the install prefix if not set by the user
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Default install path" FORCE)
 endif()
@@ -15,6 +16,7 @@ set(CPM_FORCE_BUILD TRUE)
 # PackageProject.cmake will be used to make our target installable
 cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.8.0")
 
+# Install fmt with an installable target
 cpmaddpackage(
   NAME
   fmt
@@ -23,7 +25,7 @@ cpmaddpackage(
   GITHUB_REPOSITORY
   fmtlib/fmt
   OPTIONS
-  "FMT_INSTALL YES" # create an installable target
+  "FMT_INSTALL YES" # this will create an installable target
 )
 
 # Add SFML 2.6.1 as a dependency
