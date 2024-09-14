@@ -48,7 +48,6 @@ jobs:
         run: |
           cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=ON
           sudo cmake --build build --target install --verbose
-          rm -rf build
 
       - name: configure
         run: |
