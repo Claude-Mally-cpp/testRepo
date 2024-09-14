@@ -22,7 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Enable the universe repository and install system dependencies required by SFML
+      - name: Set directory permissions
+        run: |
+          sudo chmod -R 777 /home/runner/work/testRepo/testRepo
+
+    # Enable the universe repository and install system dependencies required by SFML
       - name: Install Linux dependencies
         run: |
           sudo add-apt-repository universe
