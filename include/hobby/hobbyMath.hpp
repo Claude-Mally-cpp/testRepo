@@ -1,11 +1,11 @@
 #pragma once
 
-#include <hobby/hobby.h>
 #include <stdint.h>
 
 #include <algorithm>
 #include <concepts>
 #include <cstdlib>  // For std::abs
+#include <hobby/hobby.hpp>
 #include <numeric>
 #include <vector>
 
