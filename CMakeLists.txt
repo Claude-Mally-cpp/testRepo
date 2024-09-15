@@ -54,11 +54,13 @@ set(headers
     "include/hobby/hobby.hpp"
     "include/hobby/hobbyDice.hpp"
     "include/hobby/hobbyMath.hpp"
+    "include/hobby/enumerateFonts.hpp"
 )
 
 set(sources
     "source/hobby.cpp"
     "source/hobbyMath.cpp"
+    "source/enumerateFonts.cpp"
 )
 
 # ---- Create library ----
@@ -90,6 +92,25 @@ install(
 )
 
 install(DIRECTORY include/hobby/ DESTINATION include/hobby)
+
+# Install the fonts/Roboto directory
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/fonts/Roboto
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/fonts/Roboto
+    FILES_MATCHING PATTERN "*.ttf"
+    PATTERN "LICENSE.txt"            # Install the license file
+)
+
+# Copy the entire fonts directory (and all subdirectories) to the build directory
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/fonts
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/fonts ${CMAKE_BINARY_DIR}/fonts
+    DEPENDS ${PROJECT_SOURCE_DIR}/fonts
+    COMMENT "Copying all fonts to the build directory"
+)
+
+# Create a custom target that runs the above command
+add_custom_target(copy_fonts ALL DEPENDS ${CMAKE_BINARY_DIR}/fonts)
 
 # ---- Create an installable target ----
 string(TOLOWER ${PROJECT_NAME}/version.h VERSION_HEADER_LOCATION)
