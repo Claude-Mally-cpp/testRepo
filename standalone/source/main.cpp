@@ -2,6 +2,7 @@
 #include <fmt/ranges.h>
 #include <hobby/version.h>
 
+#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <cassert>
 #include <cxxopts.hpp>
@@ -120,7 +121,7 @@ auto main(int argc, char** argv) -> int {
 
 void playWithWindow() {
     auto title = fmt::format("Hobby window version {}", HOBBY_VERSION);
-    sf::Window window(sf::VideoMode(800, 600), title);
+    sf::RenderWindow window(sf::VideoMode(800, 600), title);
     // run the program as long as the window is open
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last
@@ -131,6 +132,14 @@ void playWithWindow() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            // clear the window with black color
+            window.clear(sf::Color::Black);
+
+            // draw everything here...
+            // window.draw(...);
+
+            // end the current frame
+            window.display();
         }
     }
 }
