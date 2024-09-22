@@ -6,12 +6,14 @@
 #include <SFML/Window.hpp>
 #include <cassert>
 #include <cxxopts.hpp>
-#include <hobby/enumerateFonts.hpp>
+#include <hobby/fonts.hpp>
 #include <hobby/hobby.hpp>
 #include <hobby/hobbyDice.hpp>
 #include <hobby/hobbyMath.hpp>
 #include <string>
 #include <unordered_map>
+
+using namespace std::literals;
 
 void playWithWindow();
 
@@ -69,6 +71,17 @@ auto main(int argc, char** argv) -> int {
             for (const auto& [fontName, fontPath] : fontMap) {
                 fmt::print("Font: {} | Path: {}\n", fontName, fontPath);
             }
+
+            // get a map of <font name> and <map of <style name>, <full-path>
+            auto organizedMap = hobby::organizedFonts(fontMap);
+            for (const auto [familyName, styleeMap] : organizedMap) {
+                fmt::print("familyName {} styles: {{", familyName);
+                for (const auto [style, path] : styleeMap) {
+                    fmt::print("{}, ", style);
+                }
+                fmt::println("}}");
+            }
+
             return 0;
         }
 
