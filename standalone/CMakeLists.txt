@@ -52,7 +52,7 @@ cpmaddpackage(NAME Hobby SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 # ---- Create standalone executable ----
 file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 add_executable(${PROJECT_NAME} ${sources})
-
+add_dependencies(HobbyStandalone copy_fonts)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20 OUTPUT_NAME "Hobby")
 
 # Link dependencies

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14...3.22)
+cmake_minimum_required(VERSION 3.22)
 
 # Define project name explicitly as Hobby
 project(Hobby VERSION 1.0 LANGUAGES CXX)
@@ -54,17 +54,22 @@ set(headers
     "include/hobby/hobby.hpp"
     "include/hobby/hobbyDice.hpp"
     "include/hobby/hobbyMath.hpp"
+    "include/hobby/fonts.hpp"
 )
 
 set(sources
     "source/hobby.cpp"
     "source/hobbyMath.cpp"
+    "source/fonts.cpp"
 )
 
 # ---- Create library ----
 add_library(${PROJECT_NAME} STATIC ${headers} ${sources})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 target_compile_options(${PROJECT_NAME} PRIVATE ${PROJECT_WARNING_FLAGS})
 
@@ -89,7 +94,43 @@ install(
   COMPONENT sfml-graphics sfml-window sfml-audio
 )
 
+# Check for specific compiler versions for C++20 support
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10)
+        message(FATAL_ERROR "GCC version 10 or later is required for C++20 ranges.")
+    endif()
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15)
+        message(FATAL_ERROR "Clang version 15 or later is required for C++20 ranges.")
+    endif()
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.29)
+        message(FATAL_ERROR "MSVC version 19.29 (Visual Studio 2019 v16.10) or later is required for C++20 ranges.")
+    endif()
+else()
+    message(WARNING "Compiler '${CMAKE_CXX_COMPILER_ID}' not explicitly checked for C++20 support.")
+endif()
+
 install(DIRECTORY include/hobby/ DESTINATION include/hobby)
+
+# Install the fonts/Roboto directory
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/fonts/Roboto
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/fonts/Roboto
+    FILES_MATCHING PATTERN "*.ttf"
+    PATTERN "LICENSE.txt"            # Install the license file
+)
+
+# Copy the entire fonts directory (and all subdirectories) to the build directory
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/fonts
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/fonts ${CMAKE_BINARY_DIR}/fonts
+    DEPENDS ${PROJECT_SOURCE_DIR}/fonts
+    COMMENT "Copying all fonts to the build directory"
+)
+
+# Create a custom target that runs the above command
+add_custom_target(copy_fonts ALL DEPENDS ${CMAKE_BINARY_DIR}/fonts)
 
 # ---- Create an installable target ----
 string(TOLOWER ${PROJECT_NAME}/version.h VERSION_HEADER_LOCATION)

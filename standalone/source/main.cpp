@@ -6,15 +6,19 @@
 #include <SFML/Window.hpp>
 #include <cassert>
 #include <cxxopts.hpp>
+#include <hobby/fonts.hpp>
 #include <hobby/hobby.hpp>
 #include <hobby/hobbyDice.hpp>
 #include <hobby/hobbyMath.hpp>
 #include <string>
 #include <unordered_map>
 
+using namespace std::literals;
+
 void playWithWindow();
 
 auto main(int argc, char** argv) -> int {
+    using namespace std::literals::string_view_literals;
     try {
         const std::unordered_map<std::string, hobby::LanguageCode> languages{
             {"en", hobby::LanguageCode::EN},
@@ -39,6 +43,7 @@ auto main(int argc, char** argv) -> int {
     ("r,random", "throw a N sided dice", cxxopts::value<uint64_t>())
     ("g,generate", "generate an array of 10 primes higher that argument", cxxopts::value<uint64_t>())
     ("w,window", "Open an SFML window")
+    ("f,fonts", "enumerate installed fonts")
   ;
         // clang-format on
 
@@ -56,6 +61,27 @@ auto main(int argc, char** argv) -> int {
 
         if (result["window"].as<bool>()) {
             playWithWindow();
+            return 0;
+        }
+
+        if (result["fonts"].as<bool>()) {
+            auto fontsHomeDirectory = "fonts"sv;
+            auto fontMap = hobby::enumerateFonts(fontsHomeDirectory);
+            fmt::println("fontMap.size={}", fontMap.size());
+            for (const auto& [fontName, fontPath] : fontMap) {
+                fmt::print("Font: {} | Path: {}\n", fontName, fontPath);
+            }
+
+            // get a map of <font name> and <map of <style name>, <full-path>
+            auto organizedMap = hobby::organizedFonts(fontMap);
+            for (const auto [familyName, styleeMap] : organizedMap) {
+                fmt::print("familyName {} styles: {{", familyName);
+                for (const auto [style, path] : styleeMap) {
+                    fmt::print("{}, ", style);
+                }
+                fmt::println("}}");
+            }
+
             return 0;
         }
 
