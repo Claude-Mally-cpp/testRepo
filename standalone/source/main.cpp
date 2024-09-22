@@ -65,20 +65,13 @@ auto main(int argc, char** argv) -> int {
         }
 
         if (result["fonts"].as<bool>()) {
-            auto fontsHomeDirectory = "fonts"sv;
-            auto fontMap = hobby::enumerateFonts(fontsHomeDirectory);
-            fmt::println("fontMap.size={}", fontMap.size());
-            for (const auto& [fontName, fontPath] : fontMap) {
-                fmt::print("Font: {} | Path: {}\n", fontName, fontPath);
-            }
+            auto fontMap = hobby::enumerateFonts();
 
             // get a map of <font name> and <map of <style name>, <full-path>
             auto organizedMap = hobby::organizedFonts(fontMap);
-            for (const auto [familyName, styleeMap] : organizedMap) {
+            for (const auto [familyName, styleMap] : organizedMap) {
                 fmt::print("familyName {} styles: {{", familyName);
-                for (const auto [style, path] : styleeMap) {
-                    fmt::print("{}, ", style);
-                }
+                fmt::print("{}", fmt::join(styleMap | std::views::keys, ", "));
                 fmt::println("}}");
             }
 

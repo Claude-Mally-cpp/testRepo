@@ -7,28 +7,70 @@ namespace fs = std::filesystem;
 
 namespace hobby {
 
-auto enumerateFonts(std::string_view directory)
+#include <filesystem>
+#include <string>
+#include <vector>
+
+const std::string hobbyFontsDirectory = "./fonts";
+
+auto getFontDirectories() -> std::vector<std::filesystem::path> {
+    std::vector<std::filesystem::path> fontDirs;
+    fontDirs.emplace_back(hobbyFontsDirectory);
+
+#ifdef _WIN32
+    // Windows
+    fontDirs.emplace_back("C:\\Windows\\Fonts");
+#elif __APPLE__
+    // macOS
+    fontDirs.emplace_back("/Library/Fonts");
+    fontDirs.emplace_back("/System/Library/Fonts");
+    fontDirs.emplace_back(std::filesystem::path(getenv("HOME")) /
+                          "Library/Fonts");
+#elif __linux__
+    // Linux
+    fontDirs.emplace_back("/usr/share/fonts");
+    fontDirs.emplace_back("/usr/local/share/fonts");
+    fontDirs.emplace_back(std::filesystem::path(getenv("HOME")) / ".fonts");
+#endif
+
+    return fontDirs;
+}
+
+auto enumerateFonts(StringLikeRange auto directories)
     -> std::map<std::string, std::string> {
     std::map<std::string, std::string> fontMap;
 
-    for (const auto& entry : fs::recursive_directory_iterator(directory)) {
-        if (entry.is_regular_file()) {
-            std::string filePath = entry.path().string();
-            std::string extension = entry.path().extension().string();
+    // Combine user-specified directories with system directories
+    auto fontsDirectories = getFontDirectories();
+    fontsDirectories.insert(fontsDirectories.end(), directories.begin(),
+                            directories.end());
 
-            if (extension == ".ttf" ||
-                extension == ".otf") {  // Assuming only .ttf and .otf fonts
-                std::string fontName =
-                    entry.path()
-                        .stem()
-                        .string();  // Font name without extension
-                fontMap[fontName] = fs::absolute(entry.path())
-                                        .string();  // Absolute path as value
+    // Lambda to process each directory and add fonts to fontMap
+    auto processDirectory = [&](const auto& directory) {
+        for (const auto& entry : fs::recursive_directory_iterator(directory)) {
+            if (entry.is_regular_file()) {
+                std::string filePath = entry.path().string();
+                std::string extension = entry.path().extension().string();
+
+                if (extension == ".ttf" || extension == ".otf") {
+                    std::string fontName =
+                        entry.path().stem().string();  // Font name
+                    fontMap[fontName] = fs::absolute(entry.path()).string();
+                }
             }
         }
+    };
+
+    for (const auto& directory : fontsDirectories) {
+        processDirectory(directory);
     }
 
     return fontMap;
+}
+
+auto enumerateFonts() -> std::map<std::string, std::string> {
+    std::vector<const char*> emptyUserPaths;
+    return enumerateFonts(emptyUserPaths);
 }
 
 auto splitFontName(const std::string& font)

@@ -1,14 +1,29 @@
 #pragma once
 
+#include <filesystem>
 #include <map>
+#include <ranges>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 
 namespace hobby {
 
-// Function to enumerate all fonts in a directory
-auto enumerateFonts(std::string_view directory)
+template <typename T>
+concept StringLike = std::is_convertible_v<T, std::filesystem::path>;
+
+template <typename Range>
+concept StringLikeRange = std::ranges::input_range<Range> &&
+                          StringLike<std::ranges::range_value_t<Range>>;
+
+/// @brief enumerate all fonts in system directories & application fonts
+/// directories.
+auto enumerateFonts() -> std::map<std::string, std::string>;
+
+/// @brief enumerate  all fonts in system directories, application fonts
+/// directories and user specified directories
+auto enumerateFonts(StringLikeRange auto directories)
     -> std::map<std::string, std::string>;
 
 /**
