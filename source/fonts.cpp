@@ -1,6 +1,7 @@
 #include <filesystem>
 #include <hobby/fonts.hpp>
 #include <ranges>
+#include <vector>
 
 namespace fs = std::filesystem;
 
