@@ -65,20 +65,13 @@ auto main(int argc, char** argv) -> int {
         }
 
         if (result["fonts"].as<bool>()) {
-            auto fontsHomeDirectory = "fonts"sv;
-            auto fontMap = hobby::enumerateFonts(fontsHomeDirectory);
-            fmt::println("fontMap.size={}", fontMap.size());
-            for (const auto& [fontName, fontPath] : fontMap) {
-                fmt::print("Font: {} | Path: {}\n", fontName, fontPath);
-            }
+            auto fontMap = hobby::enumerateFonts();
 
             // get a map of <font name> and <map of <style name>, <full-path>
             auto organizedMap = hobby::organizedFonts(fontMap);
-            for (const auto [familyName, styleeMap] : organizedMap) {
+            for (const auto [familyName, styleMap] : organizedMap) {
                 fmt::print("familyName {} styles: {{", familyName);
-                for (const auto [style, path] : styleeMap) {
-                    fmt::print("{}, ", style);
-                }
+                fmt::print("{}", fmt::join(styleMap | std::views::keys, ", "));
                 fmt::println("}}");
             }
 
@@ -147,7 +140,44 @@ auto main(int argc, char** argv) -> int {
 
 void playWithWindow() {
     auto title = fmt::format("Hobby window version {}", HOBBY_VERSION);
-    sf::RenderWindow window(sf::VideoMode(800, 600), title);
+    const auto width = 800;
+    const auto height = 600;
+    sf::RenderWindow window(sf::VideoMode(width, height), title);
+    auto fontMap = hobby::enumerateFonts();
+    auto organizedMap = hobby::organizedFonts(fontMap);
+    auto preferences = std::vector{"Arial", "Courier New", "Roboto"};
+    auto preferedFontName = hobby::findFont(organizedMap, preferences);
+    if (!preferedFontName) {
+        fmt::println(stderr,
+                     "Unable to locate one of the preferred fonts in [{}]\n",
+                     fmt::join(preferences, ", "));
+        return;
+    }
+    sf::Font font;
+    if (!font.loadFromFile(*preferedFontName)) {
+        fmt::println(stderr, "there was an error loading \"{}\"",
+                     *preferedFontName);
+    }
+    fmt::println("loaded \"{}\"", *preferedFontName);
+
+    auto testString = fmt::format("Hobby {}", *preferedFontName);
+
+    sf::Text text;
+
+    // select the font
+    text.setFont(font);  // font is a sf::Font
+
+    // set the string to display
+    text.setString(testString);
+
+    // set the character size
+    text.setCharacterSize(24);  // in pixels, not points!
+
+    // set the color
+    text.setFillColor(sf::Color::White);
+
+    // set the text style
+    text.setStyle(sf::Text::Italic);
     // run the program as long as the window is open
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last
@@ -160,9 +190,7 @@ void playWithWindow() {
             }
             // clear the window with black color
             window.clear(sf::Color::Black);
-
-            // draw everything here...
-            // window.draw(...);
+            window.draw(text);
 
             // end the current frame
             window.display();

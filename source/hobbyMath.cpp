@@ -2,7 +2,7 @@
 
 namespace hobby {
 
-std::vector<uint64_t> getDivisors(uint64_t n) {
+auto getDivisors(uint64_t n) -> std::vector<uint64_t> {
     std::vector<uint64_t> divisors;
 
     // Iterate from 1 to the square root of the absolute value of n
@@ -18,7 +18,7 @@ std::vector<uint64_t> getDivisors(uint64_t n) {
     return divisors;
 }
 
-size_t getDivisorsCount(uint64_t n) {
+auto getDivisorsCount(uint64_t n) -> size_t {
     size_t count = 0;
     // Iterate from 1 to the square root of the absolute value of n
     for (uint64_t i = 1; i <= std::sqrt(n); ++i) {
