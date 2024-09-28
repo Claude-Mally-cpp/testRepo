@@ -4,7 +4,7 @@ using namespace hobby;
 
 Hobby::Hobby(std::string _name) : name(std::move(_name)) {}
 
-std::string Hobby::greet(LanguageCode lang) const {
+auto Hobby::greet(LanguageCode lang) const -> std::string {
     switch (lang) {
         default:
         case LanguageCode::EN:

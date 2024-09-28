@@ -7,9 +7,7 @@ namespace fs = std::filesystem;
 
 namespace hobby {
 
-#include <filesystem>
 #include <string>
-#include <vector>
 
 const std::string hobbyFontsDirectory = "./fonts";
 
@@ -87,8 +85,9 @@ auto organizedFonts(const std::map<std::string, std::string>& fonts)
     // Convert the map into a vector of pairs (family, style)
     std::vector<std::pair<std::pair<std::string, std::string>, std::string>>
         transformedFonts;
+    transformedFonts.reserve(fonts.size());
     for (const auto& [fontName, path] : fonts) {
-        transformedFonts.push_back({splitFontName(fontName), path});
+        transformedFonts.emplace_back(splitFontName(fontName), path);
     }
 
     std::map<std::string, std::map<std::string, std::string>> fontMap;
