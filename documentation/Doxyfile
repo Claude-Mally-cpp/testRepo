@@ -10,7 +10,7 @@ PROJECT_NUMBER = @DOXYGEN_PROJECT_VERSION@
 INPUT = @DOXYGEN_PROJECT_ROOT@/README.md @DOXYGEN_PROJECT_ROOT@/include @DOXYGEN_PROJECT_ROOT@/documentation/pages
 EXTRACT_ALL = YES
 RECURSIVE = YES
-OUTPUT_DIRECTORY @DOXYGEN_OUTPUT_DIRECTORY@
+OUTPUT_DIRECTORY = @DOXYGEN_OUTPUT_DIRECTORY@
 
 # Use the README as a main page
 USE_MDFILE_AS_MAINPAGE = @DOXYGEN_PROJECT_ROOT@/README.md
@@ -21,14 +21,10 @@ STRIP_FROM_PATH = @DOXYGEN_PROJECT_ROOT@/include @DOXYGEN_PROJECT_ROOT@
 
 HAVE_DOT               = YES
 DOT_PATH               = /usr/local/bin   # Or wherever dot is installed
-GENERATE_GRAPHICS      = YES
-CLASS_DIAGRAMS         = YES
 INCLUDE_GRAPH          = YES
 CALL_GRAPH             = YES
 CALLER_GRAPH           = YES
 WARN_IF_UNDOCUMENTED   = YES
 WARN_IF_DOC_ERROR      = YES
 WARN_NO_PARAMDOC       = YES
-# Include all directories, files and namespaces in the documentation
-# Disable to include only explicitly documented objects
-M_SHOW_UNDOCUMENTED    = YES
+SHOW_UNDOCUMENTED      = YES
