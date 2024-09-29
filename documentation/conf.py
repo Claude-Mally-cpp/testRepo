@@ -2,7 +2,8 @@ DOXYFILE = 'Doxyfile'
 
 LINKS_NAVBAR1 = [
     (None, 'pages', [(None, 'about')]),
-    (None, 'namespaces', []),
+    (None, 'namespaces', [(None, 'namespacehobby')]),
+    (None, 'files', [(None, 'hobby_8h')]),
 ]
 
 # Add your own navbar links using the code below.
